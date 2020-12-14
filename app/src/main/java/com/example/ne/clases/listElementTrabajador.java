@@ -1,4 +1,4 @@
-package com.example.ne;
+package com.example.ne.clases;
 
 public class listElementTrabajador {
     private String codigo;

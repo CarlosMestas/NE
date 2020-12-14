@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+
+    <EditText
+        android:id="@+id/etPTra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPTra2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPTra3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/spinnerPermisoTra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/spinnerTrabajadorTra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/spinnerHorasTra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonModATra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:padding="5dp"
+            android:text="A"
+            android:textSize="10dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonModITra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="I"
+            android:textSize="10dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonModETra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="*"
+            android:textSize="10dp" />
+    </RadioGroup>
+</LinearLayout>

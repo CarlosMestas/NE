@@ -6,49 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".MantenimientoPermisos">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="25dp">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Permisos:"
-            android:textSize="20dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewInfoPermisos1"
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
                 android:padding="5dp"
+                android:text="Permisos:"
                 android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/textViewInfoPermisos2"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listRVPermisos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:textSize="20dp" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textViewInfoPermisos3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:textSize="20dp" />
+            </androidx.recyclerview.widget.RecyclerView>
+
+
         </LinearLayout>
 
-    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="625dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_person_add_black_24dp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.ne;
+package com.example.ne.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.ne.R;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

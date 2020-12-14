@@ -1,38 +1,53 @@
 package com.example.ne;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+
+import com.example.ne.adapters.listAdapterTrabajador;
+import com.example.ne.adapters.listAdapterTransaccion;
+import com.example.ne.clases.listElementPermiso;
+import com.example.ne.clases.listElementTrabajador;
+import com.example.ne.clases.listElementTransaccion;
+import com.example.ne.dialogs.dialogAddTrabajador;
+import com.example.ne.dialogs.dialogAddTransaccion;
+import com.example.ne.dialogs.dialogModTrabajador;
+import com.example.ne.dialogs.dialogModTransaccion;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MantenimientoTransacciones extends AppCompatActivity {
+public class MantenimientoTransacciones extends AppCompatActivity implements dialogAddTransaccion.dialogReloadDataTransaccionesListener, dialogModTransaccion.dialogReloadDataTransaccionesListener {
 
-    TextView textViewInfo1;
-    TextView textViewInfo2;
-    TextView textViewInfo3;
-    TextView textViewInfo4;
-    TextView textViewInfo5;
+    List<listElementTransaccion> transacciones;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mantenimiento_transacciones);
 
-        textViewInfo1 = (TextView)findViewById(R.id.textViewInfoTransacciones1);
-        textViewInfo2 = (TextView)findViewById(R.id.textViewInfoTransacciones2);
-        textViewInfo3 = (TextView)findViewById(R.id.textViewInfoTransacciones3);
-        textViewInfo4 = (TextView)findViewById(R.id.textViewInfoTransacciones4);
-        textViewInfo5 = (TextView)findViewById(R.id.textViewInfoTransacciones5);
+        FloatingActionButton fabAdd = findViewById(R.id.fabAddTra);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddDialog();
+            }
+        });
 
-        testDB();
+        chargeData();
 
     }
 
@@ -41,8 +56,9 @@ public class MantenimientoTransacciones extends AppCompatActivity {
     private static final String user = "cmestas";
     private static final String password = "123456";
 
-    public void testDB(){
+    public void chargeData(){
         try{
+            init();
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -50,32 +66,28 @@ public class MantenimientoTransacciones extends AppCompatActivity {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, user, password);
 
-            String result1 = "Cod \n";
-            String result2 = "Permiso \n";
-            String result3 = "Trabajador \n";
-            String result4 = "Horas \n";
-            String result5 = "Estado \n";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT TraPerCod, tipopermiso.TipPerNom, trabajadores.TraNom, TraPerHor, TraPerEst " +
                     "FROM transaccionespermisos INNER JOIN tipopermiso ON transaccionespermisos.TraPerTipPerCod = tipopermiso.TipPerCod " +
                     "INNER JOIN trabajadores ON transaccionespermisos.TraPerTraCod = trabajadores.TraCod");
-            ResultSetMetaData rsmd = rs.getMetaData();
 
             while(rs.next()){
-                result1 += rs.getInt(1) + "\n\n";
-                result2 += rs.getString(2) + "\n\n";
-                result3 += rs.getString(3) + "\n";
-                result4 += rs.getString(4) + "\n\n";
-                if(rs.getBoolean(5))
-                    result5 += "Activo" + "\n\n";
+                String color;
+                if(rs.getString(5).equals("A"))
+                    color = "#1DA732";
+                else if(rs.getString(5).equals("I"))
+                    color = "#005DFF";
                 else
-                    result5 += "Inactivo" + "\n\n";
+                    color = "#F93737";
+                transacciones.add(
+                        new listElementTransaccion(
+                                "" + rs.getInt(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                "" + rs.getInt(4),
+                                rs.getString(5),
+                                color));
             }
-            textViewInfo1.setText(result1);
-            textViewInfo2.setText(result2);
-            textViewInfo3.setText(result3);
-            textViewInfo4.setText(result4);
-            textViewInfo5.setText(result5);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -83,4 +95,28 @@ public class MantenimientoTransacciones extends AppCompatActivity {
         }
     }
 
+    public void init(){
+        transacciones = new ArrayList<>();
+        listAdapterTransaccion listAdapterTransaccion = new listAdapterTransaccion(transacciones,this);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewTra);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(listAdapterTransaccion);
+    }
+
+    public void openAddDialog(){
+        dialogAddTransaccion dialog = new dialogAddTransaccion();
+        dialog.show(getSupportFragmentManager(),"");
+    }
+
+
+    @Override
+    public void applyReloadAddTransacciones() {
+        chargeData();
+    }
+
+    @Override
+    public void applyReloadModTransacciones() {
+        chargeData();
+    }
 }

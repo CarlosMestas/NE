@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         buttonPermisos = (Button) findViewById(R.id.buttonPermisos);
         buttonTrabajadores = (Button) findViewById(R.id.buttonTrabjadores);
         buttonTransacciones = (Button) findViewById(R.id.buttonTransacciones);
-
         buttonPermisos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         buttonTrabajadores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         buttonTransacciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,17 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void startMantenimientoPermsisos(){
         i = new Intent (this.getApplicationContext(), MantenimientoPermisos.class);
-        startActivity(i);
     }
-
     public void startMantenimientoTrabajadores(){
         i = new Intent (this.getApplicationContext(), MantenimientoTrabajdores.class);
 
     }
-
     public void startMantenimientoTransacciones(){
         i = new Intent(this.getApplicationContext(), MantenimientoTransacciones.class);
     }
-
-
 }

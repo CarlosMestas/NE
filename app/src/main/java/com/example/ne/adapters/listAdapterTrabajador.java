@@ -1,9 +1,8 @@
-package com.example.ne;
+package com.example.ne.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ne.R;
+import com.example.ne.clases.listElementTrabajador;
+import com.example.ne.dialogs.dialogModTrabajador;
 
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class listAdapterTrabajador extends RecyclerView.Adapter<listAdapterTraba
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"Modificar al trabajador "+ trabajador.getNombre(), Toast.LENGTH_SHORT).show();
-                    openAddDialog(trabajador.getCodigo(),trabajador.getNombre(),trabajador.getEstado());
+                    openModDialog(trabajador.getCodigo(),trabajador.getNombre(),trabajador.getEstado());
                 }
             });
         }
@@ -83,7 +85,7 @@ public class listAdapterTrabajador extends RecyclerView.Adapter<listAdapterTraba
         }
     }
 
-    public void openAddDialog(String codigo, String nombre, String estado){
+    public void openModDialog(String codigo, String nombre, String estado){
         dialogModTrabajador dialog = new dialogModTrabajador(codigo, nombre, estado);
         dialog.show(((AppCompatActivity)context).getSupportFragmentManager(),"");
     }
